@@ -1,13 +1,10 @@
 const dialogflow = require('@google-cloud/dialogflow');
 const uuid = require('uuid');
-console.log(process.env.GCLOUD_CREDENTIALS)
-const creds = process.env.GCLOUD_CREDENTIALS ? JSON.parse(Buffer.from(process.env.GCLOUD_CREDENTIALS).toString('base64')) : null
-console.log(creds)
-const config = creds ? {
-  credentials: {
-    private_key: creds.private_key,
-    client_email: creds.client_email
-  }
+const credentials = process.env.GCLOUD_CREDENTIALS ? JSON.parse(
+  Buffer.from(process.env.GCLOUD_CREDENTIALS, 'base64').toString()
+) : null
+const config = credentials ? {
+  credentials
 } : {}
 
 async function runSample(projectId = 'comparison-bot-lmck') {
