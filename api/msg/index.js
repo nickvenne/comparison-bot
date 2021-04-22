@@ -7,6 +7,8 @@ const config = credentials ? {
   credentials
 } : {}
 
+
+
 async function runSample(projectId = 'comparison-bot-lmck') {
   // A unique identifier for the given session
   const sessionId = uuid.v4();
