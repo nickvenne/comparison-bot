@@ -1,12 +1,20 @@
 const dialogflow = require('@google-cloud/dialogflow');
 const uuid = require('uuid');
 
+const creds = process.env.GCLOUD_CREDENTIALS ? JSON.parse(Buffer.from(process.env.GCLOUD_CREDENTIALS).toString('base64')) : null
+const config = creds ? {
+  credentials: {
+    private_key: creds.private_key,
+    client_email: creds.client_email
+  }
+} : {}
+
 async function runSample(projectId = 'comparison-bot-lmck') {
   // A unique identifier for the given session
   const sessionId = uuid.v4();
 
   // Create a new session
-  const sessionClient = new dialogflow.SessionsClient();
+  const sessionClient = new dialogflow.SessionsClient(config);
   const sessionPath = sessionClient.projectAgentSessionPath(projectId, sessionId);
 
   // The text query request.
